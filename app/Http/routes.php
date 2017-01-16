@@ -216,3 +216,6 @@ Route::get('route7', function(){
 //--------------------------------------------------------------------------------------
 
 Route::get('category/index', 'CategoryController@index');
+
+
+Route::get('site/index', 'SiteController@index');
