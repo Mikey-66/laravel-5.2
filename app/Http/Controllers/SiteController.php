@@ -43,4 +43,9 @@ class SiteController extends Controller{
 //        dd($data);
         
     }
+    
+    public function query(){
+        
+        
+    }
 }
