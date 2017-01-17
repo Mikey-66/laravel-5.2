@@ -48,4 +48,8 @@ class SiteController extends Controller{
         
         
     }
+    
+    public function query2(){
+        
+    }
 }
