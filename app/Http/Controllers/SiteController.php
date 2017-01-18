@@ -66,7 +66,6 @@ class SiteController extends Controller{
     }
     
     // 查询构造器
-    
     public function query(){
         $data = DB::table('category')->get();
         $data = DB::table('category')->where('id', '>=', 2)->get();
@@ -141,11 +140,77 @@ class SiteController extends Controller{
 //        )
                     
         
+        $data = DB::table('category')->skip(1)->take(2)->get();
+        $data = DB::table('category')->orderBy('id', 'desc')->get();
+        
         dd($data);
         
     }
     
+    // 查询构造器  插入 修改 删除
     public function query2(){
         
+        # insert
+        
+        // 插一条
+//        $insert = DB::table('goods')->insert([
+//                    'name'=>'坦克', 'cate_id'=>3, 'price'=>9999, 
+//                    'created_at'=>date('Y-m-d H:i:s'),
+//                    'updated_at'=>date('Y-m-d H:i:s')
+//                  ]);
+        
+        
+        // 插多条
+//        $insert = DB::table('goods')->insert([
+//            ['name'=>'飞机', 'cate_id'=>1, 'price'=>6000, 'created_at'=>date('Y-m-d H:i:s')], 
+//            ['name'=>'飞机2', 'cate_id'=>2, 'price'=>889, 'created_at'=>date('Y-m-d H:i:s')]
+//        ]);
+        
+        // 插一条 并返回记录主键
+//        $insert = DB::table('goods')->insertGetId([
+//                    'name'=>'坦克10', 'cate_id'=>3, 'price'=>999.8, 
+//                    'created_at'=>date('Y-m-d H:i:s'),
+//                    'updated_at'=>date('Y-m-d H:i:s')
+//                  ]);
+        
+        #update
+        // where 一定要写在 update()前面 ，不然会发生很恐怖的事情 =.=!
+        
+        //$line = DB::table('goods')->where('id', '>', 5)->update(['price'=>989]);
+        
+        //$line = DB::table('goods')->where('id', '<', 3)->Where('cate_id', 1)->update(['price'=>1000, 'cate_id'=>3]);
+        
+        //Increment / Decrement
+        
+//        $line = DB::table('goods')->where('price', '>', 900)->increment('cate_id');
+//        $line = DB::table('goods')->where('price', '>', 900)->increment('cate_id', 100);
+//        $line = DB::table('goods')->where('price', '>', 900)->decrement('cate_id');
+//        $line = DB::table('goods')->where('price', '>', 900)->decrement('cate_id', 100);
+        
+        //You may also specify additional columns to update during the operation
+        
+//        $line = DB::table('goods')->where('id', 1)->increment('cate_id', 1, ['name'=>'风扇2']);
+//        $line = DB::table('goods')->where('id', 1)->decrement('cate_id', 1, ['name'=>'风扇', 'price'=>5000]);
+        
+        
+        #delete
+        // delete 一定要写在 delete()前面 ，不然会发生很恐怖的事情 =.=!
+        //$line = DB::table('goods')->where('id', 14)->delete();
+        
+        //If you wish to truncate the entire table, 
+        //which will remove all rows and reset the auto-incrementing ID to zero, 
+        //you may use the truncate method:
+        
+        //$line = DB::table('goods')->truncate();
+        
+        //dd($line);
     }
+    
+    // orm model curd
+    
+    public function orm(){
+      
+        
+    }
+    
 }

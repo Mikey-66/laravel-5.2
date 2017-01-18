@@ -220,3 +220,4 @@ Route::get('category/index', 'CategoryController@index');
 
 Route::get('site/index', 'SiteController@index');
 Route::get('site/query', 'SiteController@query');
+Route::get('site/query2', 'SiteController@query2');
