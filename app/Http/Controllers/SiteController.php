@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use \Illuminate\Support\Facades\DB;
+use App\Models\Category;
+use App\Models\Article;
 
 class SiteController extends Controller{
     
@@ -209,8 +211,74 @@ class SiteController extends Controller{
     // orm model curd
     
     public function orm(){
-      
+//        $data = Category::all();
+//        $data = Category::where('id', '>', 3)->get();
+//        $data = Category::whereIn('id', [1,3])->whereNotNull('desc')->get()->toArray();
+//        $data = Category::where('sort', 100)->whereNotNull('desc')->first()->toArray();
+//        $data = Category::orderBy('id', 'desc')->get()->toArray();
+//        $data = Category::orderBy('id', 'desc')->skip(1)->take(2)->get()->toArray();
+//        $data = Category::find(1)->toArray();
+//        $data = Category::whereIn('id', [2,3])->first()->toArray();
         
+        //findOrFail    firstOrFail     找不到会抛出异常
+          
+//        $data = Category::findOrFail(10)->toArray();
+//        $data = Category::where('name', '水果')->firstOrFail()->toArray();
+        
+        //Retrieving Aggregates
+//        $data = Category::max('id');
+//        $data = Category::whereNotNull('desc')->avg('sort');
+//        $data = Category::min('sort');
+        $data = Category::distinct()->count('sort');
+        dd($data);
+    }
+    
+    //orm insert update delete
+    public function orm2(){
+        // insert 
+        
+//        $orm = new Article();
+//        $orm->title = '标题1';
+//        $orm->body = '内容1';
+//        $orm->user_id = 2;
+//        $orm->timestamps = false;  //orm 不会管理created_at 和 updated_at 字段
+//        $res = $orm->save();
+        
+        // update
+//        $orm = Article::findOrFail(5);
+//        $orm->title = '新的标题';
+//        $res = $orm->save();
+        
+//        $res = Article::where('id', 5)->update(['title'=>'修改过的标题', 'body'=>'新的内容']);
+//        $res = Article::increment('user_id', 2);
+//        $res = Article::where('id', 5)->decrement('user_id', 2, ['title'=>'ttt']);
+        
+        // 批量赋值  需要模型中做相关设置
+//        $res = Article::create(['title'=>'t1', 'body'=>'b1', 'user_id'=>1]);
+        
+        //Other Creation Methods
+        
+        // Retrieve the flight by the attributes, or create it if it doesn't exist...
+//        $orm = Article::firstOrCreate(['title'=>'浏览', 'body'=>'是非', 'user_id'=>2]);
+        
+        // Retrieve the flight by the attributes, or instantiate a new instance...
+//        $orm = Article::firstOrNew(['title'=>'浏览3', 'body'=>'是非3', 'user_id'=>2]);
+//        $res = $orm->save();
+        
+        // delete
+//        $orm = Article::findOrFail(11);
+//        $res= $orm->delete();     // 返回true or false
+        
+//        $res = Article::destroy(10);    // 返回影响行数
+//        $res = Article::destroy(8,9);    
+//        $res = Article::destroy([6,7]);    
+        
+//        $res = Article::where('id', 5)->delete();   // 返回影响的行数
+//        $res = Article::truncate();         // 可以清空表   返回的是查询构造器实例
+//        $res = DB::table('articles')->delete();
+//        $res = DB::table('articles')->insert(['title'=>'t1', 'body'=>'b1', 'user_id'=>1]);
+//        $res = DB::table('articles')->truncate();   //没有返回值
+        dd($res);
     }
     
 }

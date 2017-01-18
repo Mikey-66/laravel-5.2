@@ -221,3 +221,5 @@ Route::get('category/index', 'CategoryController@index');
 Route::get('site/index', 'SiteController@index');
 Route::get('site/query', 'SiteController@query');
 Route::get('site/query2', 'SiteController@query2');
+Route::get('site/orm', 'SiteController@orm');
+Route::get('site/orm2', 'SiteController@orm2');

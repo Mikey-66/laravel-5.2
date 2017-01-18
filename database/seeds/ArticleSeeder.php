@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Models\Article;
 class ArticleSeeder extends Seeder
 {
     /**
@@ -14,7 +14,7 @@ class ArticleSeeder extends Seeder
         DB::table('articles')->delete();
 
         for ($i=0; $i < 10; $i++) {
-            \App\Article::create([
+            Article::create([
                 'title'   => 'Title '.$i,
                 'body'    => 'Body '.$i,
                 'user_id' => 1,

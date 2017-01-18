@@ -39,7 +39,7 @@ class Article extends Model
     /**
      * 批量赋值 白名单字段  一般白黑名单只需设置一个，如果同时设置，则检验顺序为先白后黑
      */
-    protected $fillable = [];
+    protected $fillable = ['title','body','user_id'];
     
     /**
      * 批量赋值 黑名单字段，默认所有字段均不可批量赋值
