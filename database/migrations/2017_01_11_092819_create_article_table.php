@@ -19,6 +19,7 @@ class CreateArticleTable extends Migration
             $table->text('body')->nullable();
             $table->integer('user_id');
             $table->timestamps();
+            $table->softDeletes();   // 添加 deleted_at 列
         });
     }
 

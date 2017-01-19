@@ -4,8 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Illuminate\Support\Facades\DB;
+
 class Article extends Model
 {
+    //  使用 soft deleting
+    use SoftDeletes;
     /**
      * 数据库连接句柄名称
      */
@@ -46,5 +52,23 @@ class Article extends Model
      */
     protected $guarded = ['*'];
     
+    /**
+     *  需要转变成日期的字段
+     */
+    protected $dates = ['deleted_at'];
+    
 
+    public function scopeOdd($query){
+        return $query->whereIn('id', [1,3,5,7]);
+    }
+    
+    public function scopeRecently($query, $now){
+//        return $query->where(DB::raw("ABS(DATEDIFF(created_at, '$now')) <=3"));
+//        return $query->whereRaw("ABS(DATEDIFF(created_at, ?)) <=3", [$now]);
+        return $query->whereRaw("ABS(DATEDIFF(created_at, ?)) <=3")->addBinding([$now]);
+    }
+    
+    public function scopeOfUser($query, $userId){
+        return $query->whereIn('user_id', $userId);
+    }
 }

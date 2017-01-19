@@ -229,7 +229,8 @@ class SiteController extends Controller{
 //        $data = Category::max('id');
 //        $data = Category::whereNotNull('desc')->avg('sort');
 //        $data = Category::min('sort');
-        $data = Category::distinct()->count('sort');
+//        $data = Category::distinct()->count('sort');
+//        $data = Article::where('id', '>', 3)->toSql();
         dd($data);
     }
     
@@ -279,6 +280,63 @@ class SiteController extends Controller{
 //        $res = DB::table('articles')->insert(['title'=>'t1', 'body'=>'b1', 'user_id'=>1]);
 //        $res = DB::table('articles')->truncate();   //没有返回值
         dd($res);
+    }
+    
+    
+    // orm soft deleting
+    public function orm3(){
+        DB::enableQueryLog();
+//        $data = Article::find(1);
+//        $res = $data->delete();
+//        dd($res);
+        
+//        $data = Article::withTrashed()->find(1);
+//        $data = Article::withTrashed()->get()->toArray();
+//        $res = $data = Article::destroy([1,3,5,7]);
+//        $data = Article::withTrashed()->where('id', '>', 4)->orWhere('body', 'like', 'Body%')->get();
+//        $data = Article::where(function($query){
+//            $query->where('id', '>', 4)->orWhere('body', 'like', 'Body%');
+//        })->get();
+//        
+//        $data = Article::where('id', '>', 4)->Orwhere('body', 'like', 'Body%')->get();
+        
+        # 以上两条查询在laravel-5.2中效果是一样的
+        
+//        $f = DB::table('articles')->get();
+//        $f = DB::table('articles')->where('id', 5)->get();
+//        $f = Article::where('id', 6)->get();
+//        $f = DB::select('select id,title from articles');
+//        $queries = DB::getQueryLog();       //  只能获取到 DB 执行的sql ORM 获取不到？
+//        dd($queries);
+        
+        $data = Article::withTrashed()->where('id', 1)->firstOrFail();
+        
+//        if ($data->trashed()){
+//            $data->restore();
+//        }else{
+//            //$data->delete();
+//        }
+//        
+//        dd($data);
+        
+        $data->forceDelete();     // 没有返回值
+    }
+    
+    
+    // Query Scopes
+    public function orm4(){
+//        Article::onlyTrashed()->restore();
+//        $data = Article::odd()->get();
+//        $data = Article::ofUser([1,2])->get();
+//        $data = Article::where('id', '>', 3)->WhereIn('user_id', [1,2])->toSql();
+//        $data2 = Article::where('id', '>', 3)->WhereIn('user_id', [1,2])->getBindings();
+//        dd($data2);
+//        exit;
+//        $data = DB::table('articles')->where('id', 5)->get();
+//        dd($data);
+        $data = Article::recently(date('Y-m-d H:i:s'))->toSql();
+//        $data = Article::recently(date('Y-m-d H:i:s'))->get();
+        dd($data);
     }
     
 }
