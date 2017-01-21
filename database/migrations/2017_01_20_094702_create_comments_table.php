@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticleTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreateArticleTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function(Blueprint $table)
-        {
+        Schema::create('comments', function(Blueprint $table){
+            $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('title');
-            $table->text('body')->nullable();
-            $table->integer('user_id');
+            $table->text('body');
+            $table->integer('article_id');
             $table->timestamps();
-            $table->softDeletes();   // 添加 deleted_at 列
+            $table->index('article_id');
+            $table->tinyInteger('star_level');
         });
     }
 

@@ -35,7 +35,7 @@ Route::get('/', 'HomeController@index');
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    //Route::get('/home', 'HomeController@index');
+    Route::get('index/index', 'IndexController@index');
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {  
@@ -225,3 +225,7 @@ Route::get('site/orm', 'SiteController@orm');
 Route::get('site/orm2', 'SiteController@orm2');
 Route::get('site/orm3', 'SiteController@orm3');
 Route::get('site/orm4', 'SiteController@orm4');
+Route::get('site/relation', 'SiteController@relation');
+Route::get('site/collection', 'SiteController@collection');
+Route::get('site/mutator', 'SiteController@mutator');
+

@@ -40,7 +40,7 @@ class Article extends Model
      * 如果你需要定制时间戳的格式，可以通过在模型（model）中设置 $dateFormat 属性来实现。
      * 这个属性决定了日期属性如何在数据库中存储，也决定当模型（model）被序列化为数组 或者 JSON 格式时日期属性的格式：
      */
-    protected $dateFormat;
+    protected $dateFormat = 'Y-m-d H:i:s';
     
     /**
      * 批量赋值 白名单字段  一般白黑名单只需设置一个，如果同时设置，则检验顺序为先白后黑
@@ -55,8 +55,30 @@ class Article extends Model
     /**
      *  需要转变成日期的字段
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at','created_at', 'updated_at'];
     
+    /**
+     *  属性投影
+     */
+    protected $casts = [
+        'json_field'=>'array'
+    ];
+    
+    /**
+     *  The attributes that should be hidden for arrays.
+     */
+    protected $hidden = ['deleted_at'];
+    
+    /**
+     * The attributes that should be visible in arrays.
+     */
+    protected $visabled = [];
+
+    /**
+     * The accessors to append to the model's array form
+     */
+    protected $appends = ['extra'];
+
 
     public function scopeOdd($query){
         return $query->whereIn('id', [1,3,5,7]);
@@ -70,5 +92,14 @@ class Article extends Model
     
     public function scopeOfUser($query, $userId){
         return $query->whereIn('user_id', $userId);
+    }
+    
+    public function comments(){
+        return $this->hasMany('App\Models\Comments', 'article_id', 'id');
+    } 
+    
+    
+    public function getExtraAttribute(){
+        return $this->attributes['extra'] = 'extra attr';
     }
 }
