@@ -8,5 +8,7 @@ use App\Http\Requests;
 
 class ArticleController extends Controller
 {
-    //
+    
+    
+    
 }

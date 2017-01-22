@@ -45,6 +45,13 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
 
 
 
+//  后台路由
+Route::group(['namespace'=>'Admin', 'prefix'=>'admin'], function(){
+    Route::resource('article', 'ArticleController');
+});
+
+
+
 #1 基础路由 
 
 //get
