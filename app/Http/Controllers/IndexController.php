@@ -97,14 +97,16 @@ class IndexController extends Controller{
 //        $request->session()->flash('status', 'Task was successful!');
 //        $se = $request->session()->all();
         
-        $se = $request->session()->get('status');
+//        $se = $request->session()->get('status');
 //        $se = $request->old('status');
 //        $se = $request->session()->all();
 //        dump($se);
 //        $age = $request->session()->pull('age');
 ////        dd($age);
 //        $se = $request->session()->all();
-        dump($se);
+//        dump($se);
+        
+        
         
     }
 }
