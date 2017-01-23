@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
 
 
 //  后台路由
-Route::group(['namespace'=>'Admin', 'prefix'=>'admin'], function(){
+Route::group(['namespace'=>'Admin', 'prefix'=>'admin','middleware' => 'web'], function(){
     Route::resource('article', 'ArticleController');
 });
 
