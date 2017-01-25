@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>LD后台管理-@yield('title')</title>
+    <title>Bootstrap 101 Template</title>
 
     <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/dashboard.css') }}" rel="stylesheet">
 
   </head>
   <body>
@@ -55,9 +55,8 @@
           </ul>
           
         </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                @yield('content')
-            </div>
+        @yield('content')
+       
       </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -65,14 +64,10 @@
     
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="{{ asset('js/public/global.js') }}"></script>
-    
-    {{--各个页面单独加载的js库文件 --}}
-    @section('js')
-    @show
-    
-    {{-- 各个子视图单独需要的js代码片段 --}}
-    @section('script')
-    @show
+    <script src="{{ URL::asset('js/public/global.js') }}"></script>
+    @yield('js')
+    <script>
+         @yield('script')
+    </script>
   </body>
 </html>

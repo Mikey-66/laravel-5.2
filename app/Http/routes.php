@@ -48,6 +48,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
 //  后台路由
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin','middleware' => 'web'], function(){
     Route::resource('article', 'ArticleController');
+    Route::get('upload/index', 'UploadController@index');
+    
+    Route::post('upload', 'UploadController@imgUpload');
+    
+    // img
+    Route::any('img/index', 'ImgController@index');
 });
 
 

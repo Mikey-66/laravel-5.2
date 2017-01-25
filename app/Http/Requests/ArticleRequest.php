@@ -26,16 +26,22 @@ class ArticleRequest extends Request
     public function rules()
     {
         return [
-            'model.title' => 'required|max:25',
+            'model.title' => 'required|max:5',
             'model.body' => 'required',
         ];
     }
     
     public function messages(){
         return [
-            'model.title.required' => '请填写标题',
-            'model.body.required'  => '请填写内容',
-            'model.title.max' => '标题长度不超过25个字'
+            'required' => ':attribute 为必填',
+            'max' => ':attribute 长度不超过:max个字符'
+        ];
+    }
+    
+    public function attributes(){
+        return [
+            'model.title'=>'标题',
+            'model.body' => '内容'
         ];
     }
 
@@ -45,6 +51,7 @@ class ArticleRequest extends Request
      */
     protected function formatErrors(Validator $validator)
     {
+//        dd($validator->errors());
         return $validator->errors()->all();
     }
 }

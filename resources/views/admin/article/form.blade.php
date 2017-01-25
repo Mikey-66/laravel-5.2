@@ -9,18 +9,22 @@
 
     <div class="form-group">
       <label>标题</label>
-      <input type="text" class="form-control" name="model[title]" value="{{ $model->title or '' }}">
+      <input type="text" class="form-control" name="model[title]" value="{{ old('model.title') ? old('model.title') : (isset($model) ? $model->title : '')}}">
     </div>
 
     <div class="form-group">
       <label>内容</label>
-      <textarea rows="10" class="form-control" name="model[body]">{{ $model->body or ''}}</textarea>
+      <textarea rows="10" class="form-control" name="model[body]">{{ old('model.body') ? old('model.body') : (isset($model) ? $model->body : '')}}</textarea>
     </div>
 
   <button type="submit" class="btn btn-primary">保存</button>
 </form>
 
-<!--@section('script')
-    @@parent
-    <script>console.log(2)</script>
-@section-->
+@section('script')
+@parent
+<script>
+{!! require_once 'js/article/base.js'!!}
+</script>
+@stop
+
+
