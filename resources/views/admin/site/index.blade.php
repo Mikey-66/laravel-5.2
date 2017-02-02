@@ -91,6 +91,20 @@
         <ul aria-expanded="true" class="collapse in">
             <li>one</li>
             <li>tow</li>
+            <li>
+                <a class="has-arrow" href="javascript:;" aria-expanded="false">subMenu 1</a>
+                <ul aria-expanded="false" class="collapse">
+                    <li>one</li>
+                    <li>tow</li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow" href="javascript:;" aria-expanded="false">subMenu 2</a>
+                <ul aria-expanded="false" class="collapse">
+                    <li>three</li>
+                    <li>four</li>
+                </ul>
+            </li>
         </ul>
     </li>
     <li>
