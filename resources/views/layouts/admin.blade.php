@@ -9,6 +9,9 @@
 
     <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    {{--各个页面单独加载的css文件 --}}
+    @section('css')
+    @show
 
   </head>
   <body>

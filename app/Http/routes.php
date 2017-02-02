@@ -50,10 +50,14 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin','middleware' => 'web'], fu
     Route::resource('article', 'ArticleController');
     Route::get('upload/index', 'UploadController@index');
     
-    Route::post('upload', 'UploadController@imgUpload');
+    Route::post('upload', ['as' => 'upload', 'uses'=>'ImgController@upload']);
     
     // img
     Route::any('img/index', 'ImgController@index');
+    Route::get('img/test', 'ImgController@test');
+    
+    
+    Route::get('site/index', 'SiteController@index');
 });
 
 
