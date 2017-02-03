@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
 
 //  后台路由
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin','middleware' => 'web'], function(){
-    Route::resource('article', 'ArticleController');
+    
     Route::get('upload/index', 'UploadController@index');
     
     Route::post('upload', ['as' => 'upload', 'uses'=>'ImgController@upload']);
@@ -56,8 +56,13 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin','middleware' => 'web'], fu
     Route::any('img/index', 'ImgController@index');
     Route::get('img/test', 'ImgController@test');
     
-    
+    // test
     Route::get('site/index', 'SiteController@index');
+    
+    // 资源路由
+    Route::resource('article', 'ArticleController');
+    Route::resource('goods', 'GoodsController');
+    
 });
 
 
