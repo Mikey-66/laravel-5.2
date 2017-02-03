@@ -83,19 +83,17 @@ class Uploader
     }
     
     protected function _checkPath(){
-        $path = realpath( public_path() . '/' . $this->tmpPath );
+        $path = public_path() . '/' . $this->tmpPath;
         
-        if (!$path){
-            $this->addErrMsg('路径无效');
-        }else{
+        if (realpath( $path ) === false){
             if (!file_exists($path) && $this->mkDir){
                 mkdir($path, 0777, true);
-            }elseif(!file_exists($path) && !$this->mkDir){
-                $this->addErrMsg('临时文件目录不存在');
+            }else{
+                $this->addErrMsg('路径无效');
             }
-            
-            $this->path = $path;
         }
+        
+        $this->path = realpath($path);
     }
     
     protected function _checkBeforeUpload(){
