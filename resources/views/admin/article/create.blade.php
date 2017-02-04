@@ -1,17 +1,24 @@
-@extends('layouts.admin');
+@extends('layouts.new')
 @section('title', '添加文章')
 @section('content')
-
-    <h2>添加文章</h2>
+<div>
     @include('layouts.message')
-    @include('admin.article.form')
-
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">添加文章</h2>
+        </div>
+        <div class="panel-body">
+            <br/>
+            @include('admin.article.form')
+        </div>
+    </div>
+</div>   
 @stop
 
 @section('script')
 @parent
 <script>
-    var x = {name:'liujie', age:18}
     console.log('1212');
 </script>
 @stop

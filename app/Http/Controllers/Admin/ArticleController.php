@@ -34,20 +34,50 @@ class ArticleController extends Controller
     
     public function store(ArticleRequest $request){
 //        dd($request->input());
-//        $this->validate($request, $rules, $messages, $customAttributes);
-//        $valiador = val
 //        $data = $request->get('content'); //获取指定参数
 //        $data = $request->content; //获取指定参数
+        
+        # 使用traits特性
+//        $this->validate($request, [
+//            'model.title' => 'required|max:5',
+//            'model.body' => 'required',
+//        ], [
+//            'required' => ':attribute 为必填',
+//            'max' => ':attribute 长度不超过:max个字符'
+//        ],[
+//            'model.title'=>'标题',
+//            'model.body' => '内容'
+//        ]);
+        
+        # 使用Validator facade
+//        $validator = Validator::make($request->all(), [
+//            'model.title' => 'required|max:5',
+//            'model.body' => 'required',
+//        ],[
+//            'required' => ':attribute 为必填',
+//            'max' => ':attribute 长度不超过:max个字符'
+//        ],[
+//            'model.title'=>'标题',
+//            'model.body' => '内容'
+//        ]);
+//        
+//        
+//        if ($validator->fails()) {
+//            return redirect()->back()->withErrors($validator)->withInput();
+//        }
+        
         $data = $request->input('model');            //获取全部参数
         $article = new Article();
         $article->title = $data['title'];
         $article->body = $data['body'];
         $article->user_id = 2;
         
+        return redirect()->back()->withInput()->withErrors(['se'=>'保存失败!', 'dsd'=>'sdsd']);
+        
         if ($article->save()) {
             return redirect('admin/article')->with('success', '保存成功');
         } else {
-            return redirect()->back()->withInput()->withErrors('保存失败！');
+            return redirect()->back()->withInput()->withErrors('保存失败!');
         }
     }
     

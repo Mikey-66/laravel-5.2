@@ -15,6 +15,7 @@
             <strong>保存失败</strong> 输入不符合要求<br><br>
             {!! implode('<br>', $errors->all()) !!}
         </div>
+        <?php dump($errors)?>
     @endif
 
 <!--    @if (count($errors) > 0)

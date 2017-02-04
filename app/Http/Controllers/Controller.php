@@ -7,15 +7,15 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-use Illuminate\Contracts\Validation\Validator;
+//use Illuminate\Contracts\Validation\Validator; // 类不要乱使用
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
-    
-    protected function formatValidationErrors(Validator $validator)
-    {
-        return $validator->errors()->all();
-    }
+      # 重写此方法需谨慎,千万注意
+//    protected function formatValidationErrors(Validator $validator)
+//    {
+//        return $validator->errors()->all();
+//    }
 }

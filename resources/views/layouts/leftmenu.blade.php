@@ -32,8 +32,8 @@
         <li>
             <a class="has-arrow" href="javascript:;" aria-expanded="false">文章管理</a>
             <ul aria-expanded="false" class="nav">
-                <li><a>one</a></li>
-                <li><a>tow</a></li>
+                <li><a href="{{ url('admin/article/create') }}">添加文章</a></li>
+                <li><a href="{{ url('admin/article/create') }}">文章列表</a></li>
             </ul>
         </li>
     </ul>

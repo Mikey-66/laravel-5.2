@@ -1,13 +1,19 @@
 @extends('layouts.new')
 @section('title', '添加商品')
 @section('content')
-    <ol class="breadcrumb">
-        <li><a>商品管理</a></li>
-        <li><a>商品列表</a></li>
-    </ol>
-    <h2>添加商品</h2>
+<div>
     @include('layouts.message')
-    @include('admin.goods.form1')
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">添加商品</h2>
+        </div>
+        <div class="panel-body">
+            <br/>
+            @include('admin.goods.form')
+        </div>
+    </div>
+</div>    
 @stop
 
 @section('script')
