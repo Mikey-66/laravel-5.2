@@ -7,23 +7,23 @@
     
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-    <div class="form-group">
+    <div class="form-group {{ $errors->has('model.title') ? 'has-error' : ( old('model.title') !== null ? 'has-success' : '' ) }}">
         <label class="col-md-2 text-right">标题</label>
         <div class="col-md-6">
             <input type="text" class="form-control" name="model[title]" value="{{ old('model.title') ? old('model.title') : (isset($model) ? $model->title : '')}}">
         </div>
         <div class="col-md-2">
-            <span>格式有误,只能填数字</span>
+            <?= $errors->has('model.title') ? $errors->first('model.title', '<p style="color:red;line-height:34px;">:message</p>') : ''?>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group {{ $errors->has('model.body') ? 'has-error' : ( old('model.body') !== null ? 'has-success' : '' ) }}">
         <label class="col-md-2 text-right">内容</label>
         <div class="col-md-6">
             <textarea rows="10" class="form-control" name="model[body]">{{ old('model.body') ? old('model.body') : (isset($model) ? $model->body : '')}}</textarea>
         </div>
         <div class="col-md-2">
-            <span>格式有误,只能填数字</span>
+            <?= $errors->has('model.body') ? $errors->first('model.body', '<p style="color:red;line-height:34px;">:message</p>') : '';?>
         </div>
     </div>
 

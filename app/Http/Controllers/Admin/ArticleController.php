@@ -20,7 +20,7 @@ class ArticleController extends Controller
 //        $bindings = $query->getBindings();
 //        dump($sql);
 //        dd($bindings);
-        $data = $query->paginate(15);
+        $data = $query->paginate(10);
 //        dd($data);
 //        $s = require_once 'js/article/base.js';
 //        echo $s;exit;
@@ -72,8 +72,6 @@ class ArticleController extends Controller
         $article->body = $data['body'];
         $article->user_id = 2;
         
-        return redirect()->back()->withInput()->withErrors(['se'=>'保存失败!', 'dsd'=>'sdsd']);
-        
         if ($article->save()) {
             return redirect('admin/article')->with('success', '保存成功');
         } else {
@@ -119,7 +117,7 @@ class ArticleController extends Controller
         $model->fill($request->get('model'));   // 批量赋值 填充模型 
         
         if ($model->save()){
-            return redirect('admin/article');
+            return redirect('admin/article')->with('success', '保存成功');
         }else{
             return redirect()->back()->withInput()->withErrors('保存失败！');
         }

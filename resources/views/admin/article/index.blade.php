@@ -1,13 +1,16 @@
-@extends('layouts.admin')   
+@extends('layouts.new')   
 @section('title', '文章列表')
 @section('content')
-    <h1 class="page-header">文章列表</h1>
-    
-    <p class="text-right"><a class="btn btn-primary" href="{{ url('admin/article/create') }}">添加文章</a></p>
+<div style="padding-right: 30px;">
+    <h3>文章列表</h3>
+    <hr/>
     
     @if(Session::has('success'))
     <div class="alert alert-success alert-dismissible">
-            <strong>{{ session('success')  }}</strong><br><br>
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <strong>{{ session('success')  }}</strong><br><br>
     </div>
     @endif
     
@@ -19,8 +22,6 @@
             <button type="submit" class="btn btn-default">搜索</button>
         </form>
     </div>
-    
-    <!--<h2 class="sub-header">Section title</h2>-->
     
     <div class="table-responsive">
         <table class="table table-hover table-striped">
@@ -51,8 +52,10 @@
                 @endforeach
             </tbody>
         </table>
-
-        {!! $data->render() !!}
+        
+        <div class="pull-right">
+            {!! $data->render() !!}
+        </div>
     </div>
-
+</div>
 @endsection
