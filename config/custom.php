@@ -11,7 +11,10 @@ $ini = \Libs\SetupApi::getInfo('site_setup');
 $admin_custom = is_array($ini) ? $ini : [];
 
 $df_custom = [
-    
+    'default_cate' => [
+        '1' => '商品分类',
+        '2' => '文章分类'
+    ],
     'img_size'=>[
         'cover'=>[
             'width'=>200,

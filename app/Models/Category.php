@@ -10,11 +10,25 @@ class Category extends Model
     
     protected $primaryKey = 'id';
     
-    protected $fillable = ['name', 'cate_path', 'sort'];
+//    protected $fillable = [];
+    
+    protected $guarded = [];
 
-    public $timestamps = false;
+    public $timestamps = true;
     
+    // 定义关联关系
     
+    public function father(){
+        return $this->hasOne('App\Models\Category', 'id', 'pid');
+    }
+    
+    public function son(){
+        return $this->hasMany('App\Models\Category', 'pid', 'id');
+    }
+
+
+
+
     //Accessors & Mutators   //通常用于格式化
     
     #Accessors

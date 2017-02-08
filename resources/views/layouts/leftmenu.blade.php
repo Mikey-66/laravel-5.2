@@ -29,8 +29,8 @@
         <li>
             <a class="has-arrow" href="javascript:;" aria-expanded="false">分类管理</a>
             <ul aria-expanded="false" class="nav nav-sub-level">
-                <li><a>one</a></li>
-                <li><a>tow</a></li>
+                <li><a href="{{ url('admin/category/create') }}">添加分类</a></li>
+                <li><a href="{{ url('admin/category') }}">分类列表</a></li>
             </ul>
         </li>
 

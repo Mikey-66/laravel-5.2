@@ -7,4 +7,10 @@ body {
     margin-left:10%;
 }
 
+/* 消除富文本插入图片弹出框负值的margin*/
+.form-horizontal .modal-body  .form-group {
+    margin-right: 0px; 
+    margin-left: 0px; 
+}
+
 

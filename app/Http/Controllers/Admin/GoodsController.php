@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Libs\BaseApi;
 
 class GoodsController extends Controller
 {
@@ -17,8 +18,9 @@ class GoodsController extends Controller
         return view('admin.goods.create');
     }
     
-    public function store(){
-        
+    public function store(Request $request){
+        $data = $request->input();
+        dd($data);
     }
 
     public function edit(){
