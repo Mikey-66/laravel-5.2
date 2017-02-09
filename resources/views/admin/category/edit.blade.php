@@ -10,7 +10,7 @@
         </div>
         <div class="panel-body">
             <br/>
-            @include('admin.article.form')
+            @include('admin.category.form')
         </div>
     </div>
 </div>  

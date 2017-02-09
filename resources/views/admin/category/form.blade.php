@@ -31,8 +31,9 @@
         <label class="col-md-2 text-right">上级分类</label>
         <div class="col-md-6">
             <select class="form-control" name="model[pid]">
+                <option value="0">顶级分类</option>
                 @foreach($cates as $value => $name)
-                <option value="{{ $value }}">{{ $name }}</option>
+                <option <?= isset($model) && $model->pid == $value ? 'selected="selected"' : '' ?> value="{{ $value }}">{{ $name }}</option>
                 @endforeach
             </select>
         </div>
@@ -55,8 +56,8 @@
         <label class="col-md-2 text-right">是否显示</label>
         <div class="col-md-6">
             <select class="form-control" name="model[is_show]">
-                <option value="1">是</option>
-                <option value="0">否</option>
+                <option <?= isset($model) && $model->is_show == '1' ? 'selected="selected"' : ''?> value="1">是</option>
+                <option <?= isset($model) && $model->is_show == '0' ? 'selected="selected"' : ''?> value="0">否</option>
             </select>
         </div>
         <div class="col-md-2">

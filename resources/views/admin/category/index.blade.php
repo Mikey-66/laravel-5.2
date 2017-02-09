@@ -5,8 +5,6 @@
     <h3>分类列表</h3>
     <hr/>
     
-    <?php dump($share);?>
-    
     @if(Session::has('success'))
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">

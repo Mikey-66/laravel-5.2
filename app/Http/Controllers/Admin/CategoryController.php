@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
+use Libs\CSXCore;
 
 class CategoryController extends Controller
 {
@@ -44,8 +45,9 @@ class CategoryController extends Controller
     public function create(){
 //        $cates = DB::table('category')->select(['id', 'name'])->get();
 //        $cates = DB::table('category')->lists('name', 'id');
-        $cates = DB::table('category')->pluck('name', 'id');
-        
+        $cates = DB::table('category')
+//                ->whereRaw('LOCATE(?, cate_path)', [',1,'])
+                ->pluck('name', 'id');
         
         return view('admin.category.create', [
             'cates' => $cates
@@ -63,7 +65,7 @@ class CategoryController extends Controller
                 throw new \Exception('保存失败');
             }
 
-            $cate->cate_path = $cate->father ? $cate->father->cate_path . $cate->id . ',' : '0,';
+            $cate->cate_path = $cate->father ? $cate->father->cate_path . $cate->id . ',' : '0,' . $cate->id . ',';
 
             if (!$cate->save()){
                 throw new \Exception('保存失败');
@@ -78,11 +80,34 @@ class CategoryController extends Controller
         }
     }
 
-    public function edit(){
+    public function edit($id){
+        //修改时 上级分类不能是自己
+        $cates = Category::where('id','<>', $id)->get()->toArray();
+        $x = CSXCore::tree($cates);
+        dd($x);
         
+        return view('admin/category/edit', [
+            'model' => Category::findOrFail($id),
+            'cates' => $cates 
+        ]);
     }
 
-    public function update(){
+    public function update(CategoryRequest $request, $id){
+        $model = Category::findOrFail($id);
+        $model->fill($request->get('model'));
+        
+        if ($model->isDirty('pid')){
+            $model->cate_path = $model->father ? $model->father->cate_path . $model->id . ',' : '0,' . $model->id . ',';
+        }
+        
+        if ($model->save()){
+            return redirect('admin/category')->with('success', '保存成功');
+        }else{
+            return redirect()->back()->withInput()->withErrors('保存失败');
+        }
+        
+        
+        
         
     }
     

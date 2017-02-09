@@ -93,7 +93,10 @@ class ArticleController extends Controller
 //    }
     
     public function edit($id){
-        return view('admin/article/edit', ['model'=>  Article::findOrFail($id)]);
+        
+        return view('admin/article/edit', [
+            'model'=>  Article::findOrFail($id)
+        ]);
     }
     
     public function update(ArticleRequest $request){

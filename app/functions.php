@@ -41,3 +41,44 @@ if (!function_exists('show')){
 }
 
 
+if (!function_exists('array_tree')){
+    function array_tree($arr){
+        static $tree=[];
+        $obj = current($arr);
+        foreach ($arr as $key => $item){
+            if (!in_array($item, $tree)){
+                $tree[] = $item;
+            }
+        }
+    }
+}
+
+
+if (!function_exists('generateTree')){
+    function generate_tree($items, $primary_key = 'id', $child_key = "pid", $child_html = "_child") {
+        $tree = array();
+        foreach ($items as $item) {
+            if (isset($items[$item[$child_key]])) {
+                $items[$item[$child_key]][$child_html][$items[$item[$primary_key]][$primary_key]] = &$items[$item[$primary_key]];
+            } else {
+                $tree[$items[$item[$primary_key]][$primary_key]] = &$items[$item[$primary_key]];
+            }
+        }
+        return $tree;
+    }
+}
+
+
+if (!function_exists('test')){
+    function test($a=0){
+        static $result=array();
+        $a++;
+        if ($a<10) {
+          $result[]=$a;
+          test($a);
+        }
+        return $result;
+    }
+}
+
+
