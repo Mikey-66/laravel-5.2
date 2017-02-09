@@ -67,7 +67,7 @@
     <div class="form-group {{ $errors->has('model.sort') ? 'has-error' : ( old('model.sort') !== null ? 'has-success' : '' ) }}">
         <label class="col-md-2 text-right">排序</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" name="model[sort]" value="{{ old('model.sort') ? old('model.sort') : (isset($model) ? $model->sort : '')}}">
+            <input type="text" class="form-control" name="model[sort]" value="{{ old('model.sort') ? old('model.sort') : (isset($model) ? $model->sort : 100)}}">
         </div>
         <div class="col-md-2">
             <?= $errors->has('model.sort') ? $errors->first('model.sort', '<p style="color:red;line-height:34px;">:message</p>') : ''?>

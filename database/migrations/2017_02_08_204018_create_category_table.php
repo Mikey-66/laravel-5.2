@@ -12,6 +12,7 @@ class CreateCategoryTable extends Migration
      */
     public function up()
     {
+        Schema::dropifexists('category');
         Schema::create('category', function(Blueprint $table)
         {
             // 存储引擎

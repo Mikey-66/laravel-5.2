@@ -11,6 +11,11 @@ use App\Http\Requests\CategoryRequest;
 class CategoryController extends Controller
 {
     
+    public function __construct() {
+        parent::__construct();
+    }
+
+
     private function _init(){
         $default_cate = config('custom.default_cate');
         DB::table('category')->truncate();
@@ -51,11 +56,25 @@ class CategoryController extends Controller
         $data = $request->get('model');
         $cate = new Category();
         $cate->fill($data);
-        dd($cate);
-        if ($cate->save()){
+        
+        try{
+            DB::beginTransaction();
+            if (!$cate->save()){
+                throw new \Exception('保存失败');
+            }
+
+            $cate->cate_path = $cate->father ? $cate->father->cate_path . $cate->id . ',' : '0,';
+
+            if (!$cate->save()){
+                throw new \Exception('保存失败');
+            }
+
+            DB::commit();
             return redirect('admin/category')->with('success', '保存成功');
-        }else{
-            return redirect()->back()->withInput()->withErrors('保存失败');
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            return redirect()->back()->withInput()->withErrors('保存失败 ' . $e->getMessage());
         }
     }
 
@@ -67,8 +86,17 @@ class CategoryController extends Controller
         
     }
     
-    public function destory(){
+    public function destroy($id){
+        $model = Category::find($id);
+        if (!$model){
+            return response()->json(['code'=>500, 'msg'=>'参数有误']);
+        }
         
+        if ($model->delete()){
+            return response()->json(['code'=>200, 'msg'=>'删除成功']);
+        }else{
+            return response()->json(['code'=>500, 'msg'=>'删除失败']);
+        }
     }
     
     public function show(){
