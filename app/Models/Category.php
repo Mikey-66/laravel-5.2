@@ -27,6 +27,13 @@ class Category extends Model
     }
 
 
+//    public function getIdAttribute($value){
+//        return (string) $value;  // 现在通过模型访问 name属性 会返回 '哈哈';
+//    }
+//    
+//    public function getPidAttribute($value){
+//        return (string) $value;  // 现在通过模型访问 name属性 会返回 '哈哈';
+//    }
 
 
     //Accessors & Mutators   //通常用于格式化

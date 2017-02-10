@@ -32,8 +32,8 @@
         <div class="col-md-6">
             <select class="form-control" name="model[pid]">
                 <option value="0">顶级分类</option>
-                @foreach($cates as $value => $name)
-                <option <?= isset($model) && $model->pid == $value ? 'selected="selected"' : '' ?> value="{{ $value }}">{{ $name }}</option>
+                @foreach($cates as $key => $item)
+                <option <?= isset($model) && $model->pid == $item['id'] ? 'selected="selected"' : '' ?> value="{{ $item['id'] }}">{{ $item['show_name'] }}</option>
                 @endforeach
             </select>
         </div>
@@ -79,6 +79,14 @@
         <button type="submit" class="btn btn-primary">保存</button>
     </div>
 </form>
+
+@section('css')
+<!--<link href="{{ asset('assets/chosen_v1.6.2/chosen.css') }}" rel="stylesheet">-->
+@stop
+
+@section('js')
+<!--<script src="{{ asset('assets/chosen_v1.6.2/chosen.jquery.min.js') }}"></script>-->
+@stop
 
 @section('script')
 @parent

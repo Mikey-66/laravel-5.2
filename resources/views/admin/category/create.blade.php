@@ -13,7 +13,7 @@
             @include('admin.category.form')
         </div>
     </div>
-</div>   
+</div>
 @stop
 
 @section('script')

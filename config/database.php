@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'fetch' => PDO::FETCH_CLASS,
+//    'fetch' => PDO::FETCH_CLASS,  // 默认配置
+    
+    'fetch' => PDO::FETCH_ASSOC,
 
     /*
     |--------------------------------------------------------------------------

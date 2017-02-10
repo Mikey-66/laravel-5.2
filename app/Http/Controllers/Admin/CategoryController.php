@@ -45,9 +45,17 @@ class CategoryController extends Controller
     public function create(){
 //        $cates = DB::table('category')->select(['id', 'name'])->get();
 //        $cates = DB::table('category')->lists('name', 'id');
-        $cates = DB::table('category')
+        
+        $cates = DB::table('category')->orderBy('cate_path')->get();
+        
+        foreach ($cates as $key => $item){
+            $cates[$key]['level'] = count(explode(',', $item['cate_path'])) - 2;
+            $cates[$key]['show_name'] = str_repeat('&nbsp;', $cates[$key]['level']*2) . '|- ' . $item['name'];
+        }
+        
+//        $cates = DB::table('category')
 //                ->whereRaw('LOCATE(?, cate_path)', [',1,'])
-                ->pluck('name', 'id');
+//                ->pluck('name', 'id');
         
         return view('admin.category.create', [
             'cates' => $cates
@@ -81,10 +89,17 @@ class CategoryController extends Controller
     }
 
     public function edit($id){
-        //修改时 上级分类不能是自己
-        $cates = Category::where('id','<>', $id)->get()->toArray();
-        $x = CSXCore::tree($cates);
-        dd($x);
+        
+        $cates = DB::table('category')->orderBy('cate_path')->get();
+        
+        $cates = CSXCore::getMenuTree($cates);
+        show($cates);
+        exit;
+        
+        foreach ($cates as $key => $item){
+            $cates[$key]['level'] = count(explode(',', $item['cate_path'])) - 2;
+            $cates[$key]['show_name'] = str_repeat('&nbsp;', $cates[$key]['level']*2) . '|- ' . $item['name'];
+        }
         
         return view('admin/category/edit', [
             'model' => Category::findOrFail($id),
