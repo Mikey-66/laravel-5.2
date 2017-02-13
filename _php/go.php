@@ -1,41 +1,57 @@
 <?php
 require 'helper.php';
 $host = "127.0.0.1";
-$dbName = "laravel5";
+$dbName = "laravel";
 $username = "root";
-$password = "123456";
+$password = "111111";
 
 $link = @mysql_connect($host, $username, $password) or die('can not link to mysql : ' . mysql_error());
 mysql_select_db($dbName) or die('can not select db : ' . mysql_error());
+//mysql_query("SET NAMES 'utf8'");
+mysql_set_charset('utf8');
 
-//function getCate($pid){
-//    $sql = "select * from category where pid ={$pid}";
-//    $resource = mysql_query($sql);
-//    $result = [];
-//    while ($row = mysql_fetch_assoc($resource)){
-//        $result[] = $row;
-//    }
-//    return $result;
-//}
-//
-//$run1 = getCate(13);
-//
-//dump($run1);exit;
-
-function sourceCate($pid, &$result){
-    static $count=0;
-    $count++;
-    dump($count);
+function sourceCate($pid, $level=0){
+    static $result=[];
+    $level++;
     $sql = "select * from category where pid ={$pid}";
     $resource = mysql_query($sql);
     while ($row = mysql_fetch_assoc($resource)){
-        $row['son'] = sourceCate($row['id'], $result);
+//        dump($row);exit;
+        $row['show_name'] = str_repeat('&nbsp;', $level*2) . '|--' . $row['name'];
+        $row['level'] = $level;
         $result[] = $row;
+        sourceCate($row['id'], $level);
     }
-    
     return $result;
 }
-$result = [];
-$data = sourceCate(0, $result);
 
-dump($data);
+/**
+ * 获取子孙树
+ * @param   array        $data   待分类的数据
+ * @param   int/string   $id     要找的子节点id
+ * @param   int          $lev    节点等级
+ */
+ function getSubTree($data , $id = 0 , $lev = 0) {
+     static $son = array();
+
+     foreach($data as $key => $value) {
+         if($value['pid'] == $id) {
+             $value['lev'] = $lev;
+             $son[] = $value;
+             getSubTree($data , $value['id'] , $lev+1);
+         }
+     }
+
+     return $son;
+ }
+ 
+ $sql = "select * from category";
+ $res = mysql_query($sql, $link);
+ $result = [];
+ while($row = mysql_fetch_assoc($res)){
+    $result[] = $row;
+ }
+ 
+$data = getSubTree($result);
+dump($data);exit;
+

@@ -89,10 +89,11 @@ class CategoryController extends Controller
     }
 
     public function edit($id){
-        
-        $cates = DB::table('category')->orderBy('cate_path')->get();
-        
-        $cates = CSXCore::getMenuTree($cates);
+//        $cates = DB::table('category')->orderBy('cate_path')->get();
+        $cates = DB::table('category')->get();
+        $cates = CSXCore::set_array_key($cates, 'id');
+//        show($cates);exit;
+        $cates = CSXCore::generate_tree4($cates);
         show($cates);
         exit;
         

@@ -66,6 +66,32 @@ class CSXCore {
         return $list;
     }
     
+    // 最合适形态
+    static function generate_tree3($items) {
+        $tree = array();
+        foreach ($items as $item) {
+            if ( isset( $items[ $item['pid'] ] ) ) {
+                $items[ $item['pid'] ] ['_child'] [] = &$items[ $item['id'] ];
+            } else {
+                $tree[] = &$items[ $item['id'] ];
+            }
+        }
+        return $tree;
+    }
+    
+    static function generate_tree4($items) {
+        $tree = array();
+        foreach ($items as $key => $item) {
+//            show($item);
+            if ( isset( $items[ $item['pid'] ] ) ) {
+                $items[ $item['pid'] ] ['_child'] [] = &$items[ $key ];
+            } else {
+                $tree[] = &$items[ $key ];
+            }
+        }
+        return $tree;
+    }
+    
     /**
      * 递归无限级分类【先序遍历算】，获取任意节点下所有子孩子
      * @param array $arrCate 待排序的数组
