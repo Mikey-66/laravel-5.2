@@ -12,6 +12,9 @@ use Libs\CSXCore;
 class CategoryController extends Controller
 {
     
+    private $_init_category = false;
+
+
     public function __construct() {
         parent::__construct();
     }
@@ -19,9 +22,21 @@ class CategoryController extends Controller
 
     private function _init(){
         $default_cate = config('custom.default_cate');
-        DB::table('category')->truncate();
+//        DB::table('category')->truncate();
+        
+        $cates = Category::select('id')->whereIn('id',[1,2])->pluck('id')->toArray();
+
+        $notExistsCate = array_diff(array_keys($default_cate), $cates);
+        
+        foreach ($default_cate as $key => $item){
+            if (!in_array($key, $notExistsCate)){
+                unset($default_cate[$key]);
+            }
+        }
+        
         foreach ($default_cate as $key => $item){
             DB::table('category')->insert([
+                'id' => $key,
                 'name' => $item,
                 'cate_path' => '0,' . $key . ',',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -32,10 +47,20 @@ class CategoryController extends Controller
     }
     
     
-    public function index(){
+    public function index(Request $request){
+        if ($this->_init_category){
+            $this->_init();
+        }
         
-//        $data = DB::table('category')->paginate(10);
-        $data = Category::with('father')->paginate(10);
+        $query = Category::query();
+        
+        $p = $request->route('pid') ? $request->route('pid') : 0;
+        
+        if ($p !== null){
+            $query->where('pid', $p);
+        }
+        
+        $data = $query->with('father')->paginate(10);
         
         return view('admin.category.index', [
             'data' => $data
@@ -74,7 +99,7 @@ class CategoryController extends Controller
             }
 
             $cate->cate_path = $cate->father ? $cate->father->cate_path . $cate->id . ',' : '0,' . $cate->id . ',';
-
+            
             if (!$cate->save()){
                 throw new \Exception('保存失败');
             }
@@ -130,13 +155,17 @@ class CategoryController extends Controller
     public function destroy($id){
         $model = Category::find($id);
         if (!$model){
-            return response()->json(['code'=>500, 'msg'=>'参数有误']);
+            $this->jsonMsg(500, '参数有误');
+        }
+        
+        if ( count($model->son()) ){
+            $this->jsonMsg(501, '存在下架分类，暂不可删除');
         }
         
         if ($model->delete()){
-            return response()->json(['code'=>200, 'msg'=>'删除成功']);
+            $this->jsonMsg(502, '删除成功');
         }else{
-            return response()->json(['code'=>500, 'msg'=>'删除失败']);
+            $this->jsonMsg(503, '删除失败');
         }
     }
     

@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\View;
+use DB;
 
 //use Illuminate\Contracts\Validation\Validator; // 类不要乱使用
 
@@ -37,6 +38,23 @@ class Controller extends BaseController
             'action' => $this->action
         ]);
         
+    }
+    
+    public function jsonMsg($code, $msg, $data = Null, $url = NULL){
+        if ($code == 200 && DB::transactionLevel() ==1){
+                DB::commit();
+        }elseif ($code !== 200 && DB::transactionLevel() ==1){
+                DB::rollback();
+        }
+        
+        response()->json([
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+            'url' => $url
+        ])->send();
+        
+        exit;
     }
 
 

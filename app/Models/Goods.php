@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Goods extends Model
 {
@@ -12,7 +14,9 @@ class Goods extends Model
     
     public $timestamps = true;
     
-    protected $fillable = ['title','body','user_id'];
+    protected $guarded = ['id'];
     
-    protected $guarded = ['*'];
+    public function cate(){
+        return $this->hasOne('App\Models\Category', 'id', 'cate_id');
+    }
 }

@@ -8,7 +8,7 @@
         <li <?= $share['controller'] =='goods' ? 'class="active"' : '' ?> >
             <a class="has-arrow" href="javascript:;" aria-expanded="{{ $share['controller'] =='goods' ? 'true' : 'false' }}">商品管理</a>
             <ul aria-expanded="false" class="collapse nav nav-sub-level">
-                <li><a>商品列表</a></li>
+                <li><a href="{{ url('admin/goods') }}">商品列表</a></li>
                 <li><a href="{{ url('admin/goods/create') }}">添加商品</a></li>
                 <li>
                     <a class="has-arrow" href="javascript:;" aria-expanded="false">subMenu 1</a>

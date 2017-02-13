@@ -28,20 +28,94 @@
             <div class="form-group">
                 <label class="col-md-2 text-right">标题</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control" name="model[title]" value="{{ old('model.title') ? old('model.title') : (isset($model) ? $model->title : '')}}">
+                    <input type="text" class="form-control" name="model[name]" value="{{ old('model.name') ? old('model.name') : (isset($model) ? $model->name : '')}}">
                 </div>
                 <div class="col-md-2">
-                    <span>格式有误,只能填数字</span>
+                    <span></span>
                 </div>
             </div>
-
+            
             <div class="form-group">
-                <label class="col-md-2 text-right">内容</label>
+                <label class="col-md-2 text-right">分类</label>
                 <div class="col-md-6">
-                  <textarea rows="10" class="form-control" name="model[body]">{{ old('model.body') ? old('model.body') : (isset($model) ? $model->body : '')}}</textarea>
+                    <select class="form-control" name="model[cate_id]">
+                        @foreach($cates as $key => $item)
+                        <option <?= isset($model) && $model->cate_id == $item['id'] ? 'selected="selected"' : '' ?> value="{{ $item['id'] }}">{{ $item['show_name'] }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-md-2">
-                    <span>格式有误,只能填数字</span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-2 text-right">货号</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="model[goods_sn]" value="{{ old('model.goods_sn') ? old('model.goods_sn') : (isset($model) ? $model->goods_sn : '')}}" />
+                </div>
+                <div class="col-md-2">
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-2 text-right">条码</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="model[barcode]" value="{{ old('model.barcode') ? old('model.barcode') : (isset($model) ? $model->barcode : '')}}" />
+                </div>
+                <div class="col-md-2">
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-2 text-right">市场价</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="model[market_price]" value="{{ old('model.market_price') ? old('model.market_price') : (isset($model) ? $model->market_price : '')}}" />
+                </div>
+                <div class="col-md-2">
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-2 text-right">售价</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="model[price]" value="{{ old('model.price') ? old('model.price') : (isset($model) ? $model->price : '')}}" />
+                </div>
+                <div class="col-md-2">
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-2 text-right">库存</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="model[stock]" value="{{ old('model.stock') ? old('model.stock') : (isset($model) ? $model->stock : '')}}" />
+                </div>
+                <div class="col-md-2">
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-2 text-right">是否上架</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="model[is_add]" value="{{ old('model.is_add') ? old('model.is_add') : (isset($model) ? $model->is_add : '')}}" />
+                </div>
+                <div class="col-md-2">
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-2 text-right">排序</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="model[sort]" value="{{ old('model.sort') ? old('model.sort') : (isset($model) ? $model->sort : '')}}" />
+                </div>
+                <div class="col-md-2">
+                    <span></span>
                 </div>
             </div>
             
@@ -106,25 +180,15 @@
         
         <div class="tab-pane fade" id="tab4">
             
-            <div class="form-group">
+<!--            <div class="form-group">
                 <label class="col-md-2 text-right">商品详情</label>
                 <div class="col-md-6">
-                    <textarea id="summernote" name="model[content]"></textarea>
+                    <textarea id="summernote" name="model[content]">{{ old('model.content') ? old('model.content') : (isset($model) ? $model->content : '')}}</textarea>
                 </div>
                 <div class="col-md-2">
                     <span>格式有误,只能填数字</span>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-2 text-right">商品参数</label>
-                <div class="col-md-6">
-                  <textarea rows="10" class="form-control" >{{ old('model.body') ? old('model.body') : (isset($model) ? $model->body : '')}}</textarea>
-                </div>
-                <div class="col-md-2">
-                    <span>格式有误,只能填数字</span>
-                </div>
-            </div>
+            </div>-->
             
             <div class="col-md-offset-2">
                 <button type="submit" class="btn btn-primary">保存</button>

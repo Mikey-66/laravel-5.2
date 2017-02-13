@@ -62,7 +62,9 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin','middleware' => 'web'], fu
     // 资源路由
     Route::resource('article', 'ArticleController');
     Route::resource('goods', 'GoodsController');
+    
     Route::resource('category', 'CategoryController');
+    Route::get("category/pid/{pid}", 'CategoryController@index');
     
 });
 
@@ -251,4 +253,6 @@ Route::get('site/orm4', 'SiteController@orm4');
 Route::get('site/relation', 'SiteController@relation');
 Route::get('site/collection', 'SiteController@collection');
 Route::get('site/mutator', 'SiteController@mutator');
+
+
 

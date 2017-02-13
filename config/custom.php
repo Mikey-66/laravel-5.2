@@ -23,7 +23,9 @@ $df_custom = [
     ],
     'upload_dir'=>'uploads/temp',
     
-    'hah'=>20
+    'hah'=>20,
+    
+    'page_count' => 15
     
 ];
 return array_merge($df_custom, $admin_custom);

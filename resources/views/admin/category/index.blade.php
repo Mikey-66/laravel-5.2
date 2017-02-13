@@ -40,8 +40,8 @@
                 @foreach($data as $key=>$item)
                 <tr>
                   <td class="text-center">{{ $key+1 }}</td>
-                  <td>{{ $item->name }}</td>
-                  <td>{{ $item->father ? $item->father->name : '顶级分类'}}</td>
+                  <td><a href="{{ url('admin/category/pid', [$item->id]) }}">{{ $item->name }}</a></td>
+                  <td><a href="{{ $item->father ? url('admin/category/pid', [$item->father->pid]) : 'javascript:0;' }}">{{ $item->father ? $item->father->name : '顶级分类'}}</a></td>
                   <td>{{ $item->is_show ? '是' : '否' }}</td>
                   <td>{{ $item->sort }}</td>
                   <td>{{ $item->updated_at }}</td>
