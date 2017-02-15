@@ -8,6 +8,8 @@ use DB;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
 use Libs\CSXCore;
+use Debugbar;
+
 
 class CategoryController extends Controller
 {
@@ -52,6 +54,11 @@ class CategoryController extends Controller
             $this->_init();
         }
         
+//        Debugbar::info(['sd'=>1, 'ddgfdg'=>'liujie']);
+//        Debugbar::error('Error21212!');
+//        Debugbar::warning('Watch out12112…');
+//        Debugbar::addMessage('Another message121212', 'mylabel');
+
         $query = Category::query();
         
         $p = $request->route('pid') ? $request->route('pid') : 0;
@@ -61,7 +68,6 @@ class CategoryController extends Controller
         }
         
         $data = $query->with('father')->paginate(10);
-        
         return view('admin.category.index', [
             'data' => $data
         ]);
