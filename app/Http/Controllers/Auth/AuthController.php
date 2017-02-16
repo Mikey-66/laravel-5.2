@@ -7,6 +7,8 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use App\Models\Category;
 
 class AuthController extends Controller
 {
@@ -37,6 +39,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('guest', ['except' => 'logout']);
     }
 
@@ -67,6 +70,23 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+        ]);
+    }
+    
+    
+    public function showLoginForm(Request $request) {
+
+        $query = Category::query();
+        
+        $p = $request->route('pid') ? $request->route('pid') : 0;
+        
+        if ($p !== null){
+            $query->where('pid', $p);
+        }
+        
+        $data = $query->with('father')->paginate(10);
+        return view('admin.category.index', [
+            'data' => $data
         ]);
     }
 }
