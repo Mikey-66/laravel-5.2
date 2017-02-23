@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -45,7 +45,8 @@ class AuthController extends Controller
 
     /**
      * Get a validator for an incoming registration request.
-     *
+     *  验证用户注册时 提交的数据
+     *  可重写此方法改变数据验证规则
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -54,18 +55,31 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'phone' => 'required|max:20',
             'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|confirmed'
+        ], [
+            'required' => ':attribute 不能为空',
+            'max' => ':attribute 长度不能超过:max 个字符'
+        ], [
+            'name' => '用户名',
+            'email' => '邮箱',
+            'phone' => '手机号码',
+            'password' => '密码',
+            'password_confirmation' => '确认密码'
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
-     *
+     * 在数据验证通过后保存 orm模型 并返回（用于登录）
+     * 可重写此方法，写入用户信息，在方法的最后返回插入的orm模型即可
      * @param  array  $data
      * @return User
      */
     protected function create(array $data)
     {
+        exit('ok');
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -74,19 +88,24 @@ class AuthController extends Controller
     }
     
     
-    public function showLoginForm(Request $request) {
-
-        $query = Category::query();
-        
-        $p = $request->route('pid') ? $request->route('pid') : 0;
-        
-        if ($p !== null){
-            $query->where('pid', $p);
-        }
-        
-        $data = $query->with('father')->paginate(10);
-        return view('admin.category.index', [
-            'data' => $data
-        ]);
+    /**
+     * 重写traits中的方法  
+     * 展示登录视图
+     * @param Request $request
+     * @return type
+     */
+    public function showLoginForm() {
+        return view('auth.mylogin');
+    }
+    
+    /**
+     * 重写traits中的方法  
+     * 展示注册视图
+     * @param Request $request
+     * @return type
+     */
+    
+    public function showRegistrationForm(){
+        return view('auth.myregister');
     }
 }

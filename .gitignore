@@ -6,3 +6,4 @@ Homestead.json
 .env
 /nbproject
 .gitignore.bak
+_ide_helper.php
