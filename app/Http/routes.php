@@ -43,10 +43,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     
 });
 
-
-
 //  后台路由
-Route::group(['namespace'=>'Admin', 'prefix'=>'admin','middleware' => 'web'], function(){
+Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => ['web', 'auth:admin']], function(){
     
     Route::get('upload/index', 'UploadController@index');
     
@@ -69,6 +67,9 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin','middleware' => 'web'], fu
 });
 
 
+Route::get('t1', function(){
+    echo 'sdsd';
+})->middleware(['web', 'auth']);     // 对get 和post 可以  对group 不行
 
 #1 基础路由 
 

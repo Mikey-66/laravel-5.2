@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        
+        /**
+         * 这一条是我自己加的
+         */
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'sysuser',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -68,6 +76,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        'sysuser' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Sysuser::class,
         ],
 
         // 'users' => [

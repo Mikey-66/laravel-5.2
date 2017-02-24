@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Sysuser;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -24,13 +25,21 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    
+    protected $registerView = "auth.myregister";     // 注册视图
+    
+    protected $loginView = "auth.login";     // 登录视图
+    
+    protected $guard = "admin";
+    
+    protected $username = "username";   // 用于查找用户的字段
 
     /**
      * Where to redirect users after login / registration.
      *
      * @var string
      */
-    protected $redirectTo = 'admin';
+    protected $redirectTo = 'admin/site/index';
 
     /**
      * Create a new authentication controller instance.
@@ -42,7 +51,7 @@ class AuthController extends Controller
         parent::__construct();
         $this->middleware('guest', ['except' => 'logout']);
     }
-
+    
     /**
      * Get a validator for an incoming registration request.
      *  验证用户注册时 提交的数据
@@ -53,16 +62,17 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'username' => 'required|max:60',
+            'email' => 'required|email|max:60|unique:sysuser',
             'phone' => 'required|max:20',
             'password' => 'required|confirmed|min:6',
-            'password_confirmation' => 'required|confirmed'
+            'password_confirmation' => 'required'
         ], [
             'required' => ':attribute 不能为空',
-            'max' => ':attribute 长度不能超过:max 个字符'
+            'max' => ':attribute 长度不能超过:max 个字符',
+            'unique' => ':attribute 已经存在'
         ], [
-            'name' => '用户名',
+            'username' => '用户名',
             'email' => '邮箱',
             'phone' => '手机号码',
             'password' => '密码',
@@ -79,14 +89,30 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        exit('ok');
-        return User::create([
-            'name' => $data['name'],
+        return Sysuser::create([
+            'username' => $data['username'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => bcrypt($data['password']),
         ]);
     }
     
+    
+    // 验证失败的返回信息
+//    protected function sendFailedLoginResponse(Request $request)
+//    {
+//        return redirect()->back()
+//            ->withInput($request->only($this->loginUsername(), 'remember'))
+//            ->withErrors([
+//                $this->loginUsername() => $this->getFailedLoginMessage(),
+//            ]);
+//    }
+    
+    // 错误信息
+    protected function getFailedLoginMessage()
+    {
+        return '密码或用户名不正确';
+    }
     
     /**
      * 重写traits中的方法  
@@ -94,9 +120,9 @@ class AuthController extends Controller
      * @param Request $request
      * @return type
      */
-    public function showLoginForm() {
-        return view('auth.mylogin');
-    }
+//    public function showLoginForm() {
+//        return view('auth.mylogin');
+//    }
     
     /**
      * 重写traits中的方法  
@@ -105,7 +131,7 @@ class AuthController extends Controller
      * @return type
      */
     
-    public function showRegistrationForm(){
-        return view('auth.myregister');
-    }
+//    public function showRegistrationForm(){
+//        return view('auth.myregister');
+//    }
 }
