@@ -20,8 +20,11 @@ class PasswordController extends Controller
 
     use ResetsPasswords;
     
+    protected $broker = "sysuser";
     
-    //protected $redirectTo = '/dashboard';
+//    protected $guard = "admin";
+
+        //protected $redirectTo = '/dashboard';
 
     /**
      * Create a new password controller instance.

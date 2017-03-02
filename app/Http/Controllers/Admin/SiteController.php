@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 class SiteController extends Controller
 {
     public function index(){
-        
         $user = Auth::guard('admin')->user();
 //        Auth::guard('admin')->logout();
 //        show($user);exit;
