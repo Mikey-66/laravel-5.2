@@ -56,6 +56,8 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => ['web', '
     
     // test
     Route::get('site/index', 'SiteController@index');
+    // 测试发送邮件
+    Route::get('site/mail', 'SiteController@mail');
     
     // 资源路由
     Route::resource('article', 'ArticleController');
