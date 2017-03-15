@@ -66,6 +66,8 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => ['web', '
     Route::resource('category', 'CategoryController');
     Route::get("category/pid/{pid}", 'CategoryController@index');
     
+    Route::get('rbac/init', 'Controller@index');
+    
 });
 
 

@@ -7,10 +7,48 @@ use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Mail;
+use Gate;
+
+use App\Models\Article;
 
 class SiteController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        
+        $post = Article::findOrFail(11);
+
+        $su = \App\Models\Sysuser::findOrFail(1);
+//        $user = Auth::guard('admin')->user();
+        
+//        $user = $request->user('admin');
+//        dump($user);exit;
+        
+//        if (Gate::denies('update-post', $post)) {
+////            exit('五次权限');
+//            abort(403);
+//        }
+        
+        
+//        if (Gate::forUser($su)->check('update-post', $post)) {
+//            exit('有权限');
+//            abort(403);
+//        }
+        
+//        if (Gate::forUser($su)->allows('update-post', $post)) {
+//            exit('无权限');
+//            abort(403);
+//        }
+        
+//        if ($request->user('admin')->can('update-post', [$post])){
+//            exit('有权限');
+//        }
+        
+//        if ($su->can('update-post', [$post])){
+//            exit('有权限');
+//        }
+//        
+//        exit('ok');
+        
         $user = Auth::guard('admin')->user();
 //        Auth::guard('admin')->logout();
 //        show($user);exit;

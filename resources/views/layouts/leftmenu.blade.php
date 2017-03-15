@@ -6,6 +6,26 @@
         <li class="divider"></li>
         
         <li <?= $share['controller'] =='goods' ? 'class="active"' : '' ?> >
+            <a class="has-arrow" href="javascript:;" aria-expanded="{{ $share['controller'] =='goods' ? 'true' : 'false' }}">RBAC管理</a>
+            <ul aria-expanded="false" class="collapse nav nav-sub-level">
+                <li>
+                    <a class="has-arrow" href="javascript:;" aria-expanded="false">角色管理</a>
+                    <ul aria-expanded="false" class="collapse nav nav-sub-level">
+                        <li><a href="{{ url('admin/goods') }}">角色列表</a></li>
+                        <li><a href="{{ url('admin/goods') }}">添加角色</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow" href="javascript:;" aria-expanded="false">权限管理</a>
+                    <ul aria-expanded="false" class="collapse nav nav-sub-level">
+                        <li><a href="{{ url('admin/goods') }}">权限列表</a></li>
+                        <li><a href="{{ url('admin/goods') }}">添加权限</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        
+        <li <?= $share['controller'] =='goods' ? 'class="active"' : '' ?> >
             <a class="has-arrow" href="javascript:;" aria-expanded="{{ $share['controller'] =='goods' ? 'true' : 'false' }}">商品管理</a>
             <ul aria-expanded="false" class="collapse nav nav-sub-level">
                 <li><a href="{{ url('admin/goods') }}">商品列表</a></li>
